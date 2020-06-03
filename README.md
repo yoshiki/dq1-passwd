@@ -89,6 +89,10 @@ dq1-passwd allows you to encode/decode for dragon quest 1 password(ふっかつ�
 If `split` is `true`, got `わわべろむ がぶまごぢぐざ でこぼゆり らむが`.  
 If `split` is `false`, got `わわべろむがぶまごぢぐざでこぼゆりらむが`.
 
+### decode(password)
+
+`decode` function converts from a password to a player's status.  
+This function returns a instance of Status class.
 
 ## Reference
 
