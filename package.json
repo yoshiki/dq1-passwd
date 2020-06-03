@@ -1,0 +1,15 @@
+{
+  "name": "dq1-passwd",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/dq1-passwd.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "Yoshiki Kurihara <clouder@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^25.1.0"
+  }
+}
