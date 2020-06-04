@@ -1,87 +1,87 @@
-# dq1-passwd
+# dq1-password
 
-dq1-passwd allows you to encode/decode for dragon quest 1 password(ふっかつのじゅもん).
+dq1-password allows you to encode/decode for dragon quest 1 password(ふっかつのじゅもん).
 
 ## Usage
 
 ### Encode(Status to password)
 ```
-    const dq1Passwd = require('dq1-passwd.js');
-    const Status = require('status.js');
-    const consts = require('constants.js');
+const dq1pw = require('dq1-password');
 
-    const status = new Status(
-        consts.nameChar.to,           // 1st name character
-        consts.nameChar.nn,           // 2nd name character
-        consts.nameChar.nu,           // 3rd name character
-        consts.nameChar.ra,           // 4th name character
-        consts.item.wings,            // 1st item
-        consts.item.fairyWater,       // 2nd item
-        consts.item.fairyWater,       // 3rd item
-        consts.item.wings,            // 4th item
-        consts.item.lotosToken,       // 5th item
-        consts.item.lorasLove,        // 6th item
-        consts.item.nallOfLight,      // 7th item
-        consts.item.stonesOfSunlight, // 8th item
-        1234,                         // 0-65535 ゴールド
-        65535,                        // 0-65535 けいけんち
-        2,                            // 0-6 所持しているかぎの数
-        3,                            // 0-6 所持しているやくそうの数
-        consts.weapon.lotoSword,      // ぶき
-        consts.armor.lotoArmor,       // よろい
-        consts.shield.silverShield,   // たて
-        true,                         // りゅうのうろこを身に付けたことがある
-        true,                         // 王女を救出済
-        true,                         // ゴーレムを討伐済
-        true,                         // せんしのゆびわを装備してる
-        true,                         // しのくびかざりを発見済
-        1,                            // 0-7 checksum
-    );
-    dq1Password.encode(status, true); // わわべろむ がぶまごぢぐざ でこぼゆり らむが
+const pw = dq1pw.encodeStatus({
+    name1: dq1pw.constants.nameChar.get("to"),
+    name2: dq1pw.constants.nameChar.get("nn"),
+    name3: dq1pw.constants.nameChar.get("nu"),
+    name4: dq1pw.constants.nameChar.get("ra"),
+    item1: dq1pw.constants.item.get("wings"),
+    item2: dq1pw.constants.item.get("fairyWater"),
+    item3: dq1pw.constants.item.get("fairyWater"),
+    item4: dq1pw.constants.item.get("wings"),
+    item5: dq1pw.constants.item.get("lotosToken"),
+    item6: dq1pw.constants.item.get("lorasLove"),
+    item7: dq1pw.constants.item.get("nallOfLight"),
+    item8: dq1pw.constants.item.get("stonesOfSunlight"),
+    gold: 1234,
+    exp: 65535,
+    key: 2,
+    herb: 3,
+    weapon: dq1pw.constants.weapon.get("lotoSword"),
+    armor: dq1pw.constants.armor.get("lotoArmor"),
+    shield: dq1pw.constants.shield.get("silverShield"),
+    uroko: true,
+    oujyo: true,
+    gorem: true,
+    ring: true,
+    death: true,
+    checksum: 1,
+}, true);
+console.log(pw); // わわべろむ がぶまごぢぐざ でこぼゆり らむが
+
+
 ```
 
 ### Decode(Password to Status)
 ```
-    const dq1Passwd = require('dq1-passwd.js');
-    const Status = require('status.js');
-    
-    const passwd = 'しせむがも ぐぼむじでごず ばしいられ るもぐ';
-    const status = dq1Passwd.decode(passwd);
+const dq1pw = require('dq1-password');
+
+const status = dq1pw.decodePassword('わわべろむ がぶまごぢぐざ でこぼゆり らむが');
+console.log(status);
 ```
 
 ## APIs
 
-### encode(status, split)
-`encode` function converts from a player's status to password.
-`status` is an object of Status class that is a player's status. The Status class has following values.
+### encodeStatus({ status }, split)
+`encodeStatus` function converts from a player's status to password.
+`status` is a player's status object(key/value pair).  
+`status` object includes values as follow.
 
-| No | Value | Type |
+| Key | Value | Type |
 |:---:|:---|:---|
-| 1 | 1st name character | `nameChar` in constants.js |
-| 2 | 2nd name character | `nameChar` in constants.js |
-| 3 | 3rd name character | `nameChar` in constants.js |
-| 4 | 4th name character | `nameChar` in constants.js |
-| 5 | 1st item | `item` in constants.js |
-| 6 | 2nd item | `item` in constants.js |
-| 7 | 3rd item | `item` in constants.js |
-| 8 | 4th item | `item` in constants.js |
-| 9 | 5th item | `item` in constants.js |
-| 10 | 6th item | `item` in constants.js |
-| 11 | 7th item | `item` in constants.js |
-| 12 | 8th item | `item` in constants.js |
-| 13 | Gold ゴールド | Number (0-65535) |
-| 14 | Experience けいけんち | Number (0-65535) |
-| 15 | A number of key 所持しているかぎ | Number (0-6) |
-| 16 | A number of herb 所持しているやくそう | Number (0-6) |
-| 17 | Weapon ぶき | `weapon` in constants.js |
-| 18 | Armor よろい | `armor` in constants.js |
-| 19 | Shield たて | `shield` in constants.js |
-| 20 | Equipped dragon scale | Boolean |
-| 21 | Saved The Lady Lora | Boolean |
-| 22 | Defeated The Gorem | Boolean |
-| 23 | Equipped The Fighters ring | Boolean |
-| 24 | Found out The cursed necklace | Boolean |
-| 25 | Checksum | Number (0-7) |
+| name1 | 1st name character | `nameChar` in `constants` |
+| name2 | 2nd name character | `nameChar` in `constants` |
+| name3 | 3rd name character | `nameChar` in `constants` |
+| name4 | 4th name character | `nameChar` in `constants` |
+| item1 | 1st item | `item` in `constants` |
+| item2 | 2nd item | `item` in `constants` |
+| item3 | 3rd item | `item` in `constants` |
+| item4 | 4th item | `item` in `constants` |
+| item5 | 5th item | `item` in `constants` |
+| item6 | 6th item | `item` in `constants` |
+| item7 | 7th item | `item` in `constants` |
+| item8 | 8th item | `item` in `constants` |
+| gold | Gold ゴールド | Number (0-65535) |
+| exp | Experience けいけんち | Number (0-65535) |
+| key | A number of key 所持しているかぎ | Number (0-6) |
+| herb | A number of herb 所持しているやくそう | Number (0-6) |
+| weapon | Weapon ぶき | `weapon` in `constants` |
+| armor | Armor よろい | `armor` in `constants` |
+| shield | Shield たて | `shield` in `constants` |
+| uroko | Equipped dragon scale | Boolean |
+| oujyo | Saved The Lady Lora | Boolean |
+| gorem | Defeated The Gorem | Boolean |
+| ring | Equipped The Fighters ring | Boolean |
+| death | Found out The cursed necklace | Boolean |
+| checksum | Checksum | Number (0-7) |
 
 
 `split` is a boolean value whether a password should be split into spaces for easy understanding.
@@ -89,10 +89,10 @@ dq1-passwd allows you to encode/decode for dragon quest 1 password(ふっかつ�
 If `split` is `true`, got `わわべろむ がぶまごぢぐざ でこぼゆり らむが`.  
 If `split` is `false`, got `わわべろむがぶまごぢぐざでこぼゆりらむが`.
 
-### decode(password)
+### decodePassword(password)
 
 `decode` function converts from a password to a player's status.  
-This function returns a instance of Status class.
+This function returns a instance of player's status object.
 
 ## Reference
 

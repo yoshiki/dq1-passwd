@@ -1,8 +1,8 @@
 {
-  "name": "dq1-passwd",
+  "name": "dq1-password",
   "version": "1.0.0",
   "description": "",
-  "main": "lib/dq1-passwd.js",
+  "main": "lib/dq1-password.js",
   "scripts": {
     "test": "jest"
   },
